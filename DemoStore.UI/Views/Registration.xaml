@@ -4,46 +4,137 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DemoStore.UI.Views"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="500"
-             Background="#FEFEFE"
-             
+             d:DesignHeight="700" d:DesignWidth="450"
              >
-            
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition  Height="100"/>
-            <RowDefinition  Height="100"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="150"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Row="0" Margin="10" Grid.ColumnSpan="2">
-            <TextBlock Text="Scan/Enter Barcode" Style="{StaticResource txtBlk}" FontSize="15"/>
-            <TextBox Name="txtBarcode" Style="{StaticResource txtBox}"/>
-            
-        </StackPanel>
+    <Border  >
+        <Border.Background >
+            <LinearGradientBrush>
+                <GradientStop Color="White"  Offset="0"/>
+            </LinearGradientBrush>
+        </Border.Background>
+        <Grid Margin="20">
+            <Grid.RowDefinitions>
+                <RowDefinition  Height="100"/>
+                <RowDefinition  Height="100"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="200"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Row="0" Margin="10" Grid.ColumnSpan="2">
+                <TextBlock Text="Scan/Enter Barcode" Style="{StaticResource txtBlk}" FontSize="15"/>
+                <TextBox Name="txtBarcode" Style="{StaticResource txtBox}"/>
 
-        
+            </StackPanel>
+
+
             <StackPanel Grid.Column="0" Margin="5" Grid.Row="1">
                 <TextBlock Text="Mobile" Style="{StaticResource txtBlk}" FontSize="15"/>
                 <TextBox Name="txtMobile" Style="{StaticResource txtBox}"/>
             </StackPanel>
             <StackPanel Grid.Column="1" Margin="5" Grid.Row="1" >
                 <TextBlock Text="Name" Style="{StaticResource txtBlk}" FontSize="15"/>
-            <TextBox Name="txtName" Style="{StaticResource txtBox}"/>
+                <TextBox Name="txtName" Style="{StaticResource txtBox}"/>
             </StackPanel>
-        <StackPanel Grid.ColumnSpan="2" Grid.Row="2" FlowDirection="LeftToRight" Orientation="Horizontal" Height="50" Margin="0,10,0,0" VerticalAlignment="Top" >
-            <TextBlock  Text="Item Name"  Style="{StaticResource txtBlk}"/>
-                <TextBlock  Text="Quantity"  Style="{StaticResource txtBlk}"/>
-                <TextBlock  Text="Price"  Style="{StaticResource txtBlk}"/>
-            </StackPanel>
-        <StackPanel Grid.Row="2" Height="400">
 
-        </StackPanel>
-        
-    </Grid>
+            <Grid Grid.Row="2" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="150"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition  Height="50"/>
+                    <RowDefinition  Height="50"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Border Height="1" Background="LightGray"  VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="0"/>
+
+                <TextBlock  Text="Item Name"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock  Text="Quantity"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock  Text="Price"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Row="0"/>
+
+                <TextBlock Text="Grand Total" FontSize="15" Style="{StaticResource txtBlk}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                <TextBlock Text="0.0" FontSize="15" Style="{StaticResource txtBlk}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3" Margin="0,0,10,0" />
+
+                <ComboBox Grid.Row="2" Margin="10,10,0,0" Name="ComboBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="30">
+                    <ComboBoxItem Content="Percent" IsSelected="true"></ComboBoxItem>
+                    <ComboBoxItem Content="Flat"></ComboBoxItem>
+                </ComboBox>
+
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" VerticalAlignment="Top" Height="30" Style="{StaticResource txtBox}"/>
+                <!--<Button Content="Apply" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" Height="30" Width="100" Margin="10,10,0,10" Background="Yellow" Foreground="Black"/>-->
+
+                <Button Grid.Row="2" Grid.Column="2" Margin="10,10,0,0" VerticalAlignment="Top" Height="30" Style="{StaticResource paymentButton}" Background="#FBB040" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Apply" Style="{StaticResource menuButtonText}" Tag="{StaticResource ForegroundColor}"/>
+                    </StackPanel>
+                </Button>
+
+            </Grid>
+            <Border Height="1" Background="LightGray"  VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="3" Margin="0,10,0,0"/>
+
+            <TextBlock Text="Payment Mode" Grid.Row="3" Style="{StaticResource txtBlk}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+
+            <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Row="3"/>
+
+            <WrapPanel HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Top" Margin="10,10,10,10" Orientation="Horizontal" Grid.ColumnSpan="2">
+                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="MoneyBill" Style="{StaticResource paymentIcon}"/>
+                        <TextBlock Text="Cash" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </Button>
+                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="CreditCard" Style="{StaticResource paymentIcon}"/>
+                        <TextBlock Text="Card" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </Button>
+                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="Computer" Style="{StaticResource paymentIcon}"/>
+                        <TextBlock Text="Online" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </Button>
+
+                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="CircleXmark" Style="{StaticResource paymentIcon}"/>
+                        <TextBlock Text="Due" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </Button>
+                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                    <StackPanel Orientation="Horizontal">
+                        <fa:IconImage Icon="CircleHalfStroke" Style="{StaticResource paymentIcon}"/>
+                        <TextBlock Text="Partially" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+
+                </Button>
+
+
+            </WrapPanel>
+
+
+            <Button Grid.Row="4"  Grid.ColumnSpan="2" Background="#FBB040" Height="30" Width="250" Margin="10,10,10,10"  Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                    <StackPanel Orientation="Horizontal">
+                       <TextBlock Text="Place Order" Style="{StaticResource menuButtonText}"/>
+                    </StackPanel>
+                </Button>
+
+
+
+        </Grid>
+    </Border>
 </UserControl>

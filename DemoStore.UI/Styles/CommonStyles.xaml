@@ -1,15 +1,50 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" >
 
 
     <Style x:Key="txtBlk" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="FontFamily" Value="Montserrat"/>
-        <Setter Property="FontWeight" Value="SemiBold"/>
+        <Setter Property="FontFamily" Value="Poppins, sans-serif"/>
+        <Setter Property="FontWeight" Value="DemiBold"/>
     </Style>
     <Style x:Key="txtBox" TargetType="TextBox">
         <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="BorderThickness" Value="1"/>
     </Style>
+    <Style x:Key="paymentIcon" TargetType="fa:IconImage">
+        <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=Button}}"/>
+        <Setter Property="Width" Value="20"/>
+        <Setter Property="Height" Value="20"/>
+        <Setter Property="Margin" Value="3"/>
+    </Style>
+    <Style x:Key="paymentButton" TargetType="Button">
+        <Setter Property="Background" Value="White"/>
+    </Style>
 
+
+    <Style x:Key="cardTextBlk" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+    </Style>
+
+    <Style x:Key="priceButton" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="180"/>
+        <Setter Property="Background" Value="{StaticResource HoverBackgroundColor}" />
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+
+
+    </Style>
+
+    <Style x:Key="cardCanvas" TargetType="Canvas">
+        <Setter Property="Margin"  Value="10"/>
+        <Setter Property="Height" Value="180" />
+        <Setter Property="Width" Value="180" />
+    </Style>
 </ResourceDictionary>
