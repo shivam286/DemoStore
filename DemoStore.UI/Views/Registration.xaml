@@ -26,7 +26,7 @@
                 <ColumnDefinition />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Margin="10" Grid.ColumnSpan="2">
+            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
                 <TextBlock Text="Scan/Enter Barcode" Style="{StaticResource txtBlk}" FontSize="15"/>
                 <TextBox Name="txtBarcode" Style="{StaticResource txtBox}"/>
 
