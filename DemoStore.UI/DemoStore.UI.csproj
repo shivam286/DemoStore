@@ -8,9 +8,17 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="images\Bhim.png" />
+    <None Remove="images\GooglePe.png" />
     <None Remove="images\logo.png" />
-    <None Remove="images\profile.jpg" />
+    <None Remove="images\paytm.png" />
+    <None Remove="images\PhonePe.png" />
     <None Remove="images\profileImage.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\logo.png" />
+    <Resource Include="images\PhonePe.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -18,8 +26,13 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="images\logo.png" />
-    <Resource Include="images\profile.jpg" />
+    <ProjectReference Include="..\DemoStore.ViewModels\DemoStore.ViewModels.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\Bhim.png" />
+    <Resource Include="images\GooglePe.png" />
+    <Resource Include="images\paytm.png" />
     <Resource Include="images\profileImage.png" />
   </ItemGroup>
 

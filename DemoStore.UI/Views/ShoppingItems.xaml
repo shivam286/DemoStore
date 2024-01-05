@@ -3,230 +3,87 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp" 
+             xmlns:product="clr-namespace:DemoStore.ViewModels;assembly=DemoStore.ViewModels"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="700">
-    <Grid >
-        <Canvas Background="Transparent" >
-            <Grid>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                
+             d:DesignWidth="620" Height="700">
 
-       
 
-            <Canvas   Style="{StaticResource cardCanvas}" Grid.Column="0" Background="White">
-                
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
 
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" >
 
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Column="1" Background="White">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="80"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
+            <TextBlock Text="Items" Margin="10,0,0,0" Grid.Row="0" FontSize="38" FontWeight="Bold" FontFamily="montserrat"/>
+            <Border Background="White" CornerRadius="15" Grid.Column="1" Grid.Row="0"  Width="260" Style="{StaticResource txtBoxBorder}" Height="45">
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
+                <DockPanel >
+                    <fa:IconImage Icon="Search" Style="{StaticResource menuButtonIcon}" Width="20" Height="20" DockPanel.Dock="Left" Margin="5,5,0,5"/>
+                    <TextBox Name="searchBox" Style="{StaticResource txtBox}" 
+                         TextChanged="searchBox_TextChanged" Width="200"/>
+                </DockPanel>
 
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
 
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Column="2" Background="White">
+            </Border>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
+            <ItemsControl x:Name="productsContainer" Grid.ColumnSpan="2" Grid.Row="1">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate >
+                            <StackPanel Style="{StaticResource cardCanvas}" >
+                            <Border Style="{StaticResource shoppingBoxBorder}">
+                                
+                                <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="130"/>
+                                    <RowDefinition Height="50"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="180"/>
+                                </Grid.ColumnDefinitions>
+                                    
+                                    
+                                    <Grid.Resources>
+                                       
+                                       
+                                    </Grid.Resources>
+                                    <TextBlock Text="{Binding Name}" Style="{StaticResource cardTextBlk}" TextAlignment="Justify" />
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
+                                <Button Content="{Binding SellPrice}" Grid.Row="1" Tag="{Binding}" Cursor="Hand"
+                                        VerticalContentAlignment="Center" Style="{StaticResource priceButton}" Click="AddToCart">
+                                    <Button.Template>
+                                        <ControlTemplate TargetType="Button">
+                                            <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}"
+                                                    BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="5">
+                                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                            </Border>
+                                        </ControlTemplate>
+                                    </Button.Template>
+                                </Button>
 
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
+                            </Grid>
+                               
+                            </Border>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
 
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Row="1" Grid.Column="0" Background="White">
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Row="1" Grid.Column="1" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Row="1" Grid.Column="2" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Row="2" Grid.Column="0" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Row="2" Grid.Column="1" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Grid.Row="2" Grid.Column="2" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
-                <Canvas   Style="{StaticResource cardCanvas}" Background="White">
-
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="150"/>
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="180"/>
-                    </Grid.ColumnDefinitions>
-                    <TextBlock Text="Test Product" Style="{StaticResource cardTextBlk}"/>
-
-                    <Button Content="1202.00" Grid.Row="1" VerticalContentAlignment="Center" Style="{StaticResource priceButton}"/>
-
-                </Grid>
-            </Canvas>
         </Grid>
-        </Canvas>     
-    </Grid>
+    </ScrollViewer>
+
 </UserControl>

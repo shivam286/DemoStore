@@ -5,22 +5,123 @@
 
     <Style x:Key="txtBlk" TargetType="TextBlock">
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
-        <Setter Property="FontFamily" Value="Poppins, sans-serif"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
         <Setter Property="FontWeight" Value="DemiBold"/>
+
     </Style>
     <Style x:Key="txtBox" TargetType="TextBox">
-        <Setter Property="Height" Value="30"/>
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="TextBox">
+                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                        <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+
     </Style>
+    <Style x:Key="pwdTxtBox" TargetType="PasswordBox">
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="BorderThickness" Value="1"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Setter Property="Height" Value="45"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
+    </Style>
+    <Style x:Key="txtBoxBorder" TargetType="Border">
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="BorderBrush" Value="{StaticResource HoverBackgroundColor}" /> 
+    </Style>
+    <Style x:Key="loginTxtBoxBorder" TargetType="Border">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="BorderBrush" Value="#c0c0c0" />
+    </Style>
+
+    <Style x:Key="shoppingBoxBorder" TargetType="Border">
+        <Setter Property="BorderThickness" Value="1" />
+        <Setter Property="CornerRadius" Value="15" />
+        <Setter Property="Background" Value="{StaticResource HoverForegroundColor}" />
+        <Setter Property="Height" Value="180" />
+        <Setter Property="Width" Value="180" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverBackgroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
     <Style x:Key="paymentIcon" TargetType="fa:IconImage">
         <Setter Property="Foreground" Value="{Binding Path=Tag, RelativeSource={RelativeSource AncestorType=Button}}"/>
         <Setter Property="Width" Value="20"/>
         <Setter Property="Height" Value="20"/>
         <Setter Property="Margin" Value="3"/>
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="{StaticResource HoverForegroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
-    <Style x:Key="paymentButton" TargetType="Button">
+    <Style x:Key="paymentButton" TargetType="RadioButton">
         <Setter Property="Background" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}"
+                            BorderThickness="1" CornerRadius="10"
+                            BorderBrush="{StaticResource HoverBackgroundColor}" >
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+                    </Border>
+
+                   
+                </ControlTemplate>
+            </Setter.Value>
+           
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverBackgroundColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource HoverForegroundColor}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverBackgroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+
+    <Style x:Key="onlinePaymentButton" TargetType="RadioButton">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="RadioButton">
+                    <Border Background="{TemplateBinding Background}"
+                        BorderThickness="0.2" CornerRadius="5"
+                        BorderBrush="LightBlue" >
+                        <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Background" Value="PapayaWhip"/>
+                <Setter Property="Foreground" Value="{StaticResource HoverForegroundColor}"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="LightCyan"/>
+            </Trigger>
+        </Style.Triggers>
     </Style>
 
 
@@ -29,22 +130,87 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="TextWrapping" Value="Wrap"/>
+        <Setter Property="TextAlignment" Value="Center"/>
+        <Setter Property="FontFamily" Value="Montserrat"/>
+        <Style.Triggers>
+            <!--<Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource  HoverBackgroundColor}" />
+                <Setter Property="Foreground" Value="{StaticResource HoverForegroundColor}" />
+            </Trigger>-->
+        </Style.Triggers>
+
     </Style>
 
     <Style x:Key="priceButton" TargetType="Button">
         <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
         <Setter Property="Height" Value="30"/>
-        <Setter Property="Width" Value="180"/>
         <Setter Property="Background" Value="{StaticResource HoverBackgroundColor}" />
         <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="8,0,8,0"/>
         <Setter Property="FontWeight" Value="Bold"/>
 
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="{StaticResource HoverForegroundColor}"/>
+                <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+            </Trigger>
+        </Style.Triggers>
 
     </Style>
 
-    <Style x:Key="cardCanvas" TargetType="Canvas">
+    <Style x:Key="btnStyle" TargetType="Button">
+        <Setter Property="Foreground" Value="{StaticResource ForegroundColor}"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Background" Value="{StaticResource HoverBackgroundColor}" />
+        <Setter Property="FontSize" Value="15"/>
+        <Setter Property="Margin" Value="8,0,8,0"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+
+    </Style>
+
+    <Style x:Key="cardCanvas" TargetType="StackPanel">
         <Setter Property="Margin"  Value="10"/>
         <Setter Property="Height" Value="180" />
         <Setter Property="Width" Value="180" />
+        
     </Style>
+
+    <Style x:Key="qntBox" TargetType="TextBox">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Width" Value="50" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="FontFamily" Value="Montserrat"/>
+    </Style>
+
+    <Style x:Key="qntBtn" TargetType="Button">
+        <Setter Property="Width" Value="30" />
+        <Setter Property="Height" Value="30" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="16" />
+    </Style>
+    <Style x:Key="clearCartBtn" TargetType="Button">
+        <!--<Setter Property="Width" Value="60" />-->
+        <Setter Property="Height" Value="30" />
+        <Setter Property="Background" Value="#f62d51" />
+        <Setter Property="Foreground" Value="#fff" />
+        <Setter Property="FontWeight" Value="Medium" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="12" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+
+                <Setter Property="Background" Value="Black" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <Style x:Key="onlinePaymentImage" TargetType="Image">
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="Width" Value="40"/>
+    </Style>
+
 </ResourceDictionary>

@@ -1,0 +1,142 @@
+﻿<Window x:Class="DemoStore.UI.Views.Login"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DemoStore.UI.Views"
+        xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+        mc:Ignorable="d"
+        Title="Login" Height="700" Width="1000"
+        Background="Transparent" 
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        WindowStartupLocation="CenterScreen"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown" >
+
+    <Border CornerRadius="20"
+            BorderThickness="2"
+            Background="#fff" >
+        <Border.BorderBrush>
+            <LinearGradientBrush >
+                <GradientStop Color="LightBlue" Offset="0"/>
+            </LinearGradientBrush>
+        </Border.BorderBrush>
+
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal"
+                 Height="35"
+                 Margin="30,0,0,0" >
+                <Image Source="/images/logo.png" Height="30"/>
+                <TextBlock Text="Demo Store"
+                 Foreground="{StaticResource LightForegroundColor}"
+                 FontSize="20"
+                 FontFamily="Montserrat"
+                 FontWeight="Bold"
+                 VerticalAlignment="Center"
+                 Margin="10,0,0,0" />
+
+            </StackPanel>
+            <StackPanel x:Name="pnlControlBar" Height="30"
+            Grid.Row="0" VerticalAlignment="Top"
+            Grid.Column="1"
+            Orientation="Horizontal"
+            FlowDirection="RightToLeft"
+            Background="Transparent"
+            Margin="0,0,5,0" >
+                <Button x:Name="btnClose" Style="{StaticResource controlButton}"
+             Tag="{StaticResource ForegroundColor}"
+             Click="BtnClose_Click" >
+                    <fa:IconImage Icon="Xmark" Style="{StaticResource controlButtonIcon}" />
+
+                </Button>
+                <Button x:Name="btnMaximize" Style="{StaticResource controlButton}"
+          Tag="{StaticResource ForegroundColor}"
+          Click="btnMaximize_Click" >
+                    <fa:IconImage Icon="WindowMaximize" Style="{StaticResource controlButtonIcon}" />
+
+                </Button>
+                <Button x:Name="btnMinimize" Style="{StaticResource controlButton}"
+          Tag="{StaticResource ForegroundColor}"
+          Click="btnMinimize_Click" >
+                    <fa:IconImage Icon="WindowMinimize" Style="{StaticResource controlButtonIcon}" />
+
+                </Button>
+
+            </StackPanel >
+            <Grid Grid.Row="1" Grid.ColumnSpan="2">
+                <TextBlock Text="Welcome to Demo store's Store"
+                           HorizontalAlignment="Center"
+                           VerticalAlignment="Top" FontSize="25"
+                           Margin="0,40,0,0" Style="{StaticResource menuButtonText}"/>
+
+                <Border Height="420" Width="600" Margin="0,0,0,0"
+                        BorderThickness="1"
+                        Background="#fff" >
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                            <GradientStop Color="#c0c0c0" Offset="0"/>
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                    <StackPanel Height="400" Width="500"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center" >
+                        <TextBlock Text="Login" FontSize="26"  FontWeight="Medium" 
+                                   Style="{StaticResource cardTextBlk}" Margin="0,20,0,0"/>
+                        <TextBlock Text="Access to our dashboard" FontSize="18"  FontWeight="Regular" 
+                                   Style="{StaticResource cardTextBlk}" />
+                        <TextBlock Text="Email" x:Name="emailBlock" 
+                                   FontSize="16" Margin="10,30,0,0" 
+                                   Style="{StaticResource controlButtonText}"/>
+                        <Border CornerRadius="5" Style="{StaticResource loginTxtBoxBorder}" Margin="10,5,10,0">
+                            <TextBox x:Name="emailBox" Style="{StaticResource txtBox}">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Border>
+                        <TextBlock Text="Password" FontSize="16"
+                                   Style="{StaticResource controlButtonText}"
+                                   x:Name="passwordBlock" Margin="10,30,0,0"/>
+                        <Border CornerRadius="5" Style="{StaticResource loginTxtBoxBorder}"
+                                  Margin="10,5,10,0">
+                            <PasswordBox x:Name="passwordBox" Style="{StaticResource pwdTxtBox}">
+                                <PasswordBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </PasswordBox.Resources>
+                            </PasswordBox>
+                        </Border>
+                        <Button Content="Login" Height="45" Foreground="White" Click="Login_Click"
+                                FontSize="18" FontFamily="Montserrat" Margin="10,20,10,0">
+                            <Button.Background>
+                                <LinearGradientBrush  StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#00c5fb" Offset="0.25"/>
+                                    <GradientStop Color="#0253cc" Offset="0.75"/>
+                                </LinearGradientBrush>
+                            </Button.Background>
+                            <Button.Resources>
+                                <Style TargetType="{x:Type Border}">
+                                    <Setter Property="CornerRadius" Value="5"/>
+                                    <Setter Property="Cursor" Value="Hand"/>
+                                </Style>
+                            </Button.Resources>
+                        </Button>
+                    </StackPanel>
+                </Border>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>

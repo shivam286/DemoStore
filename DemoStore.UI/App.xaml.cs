@@ -13,5 +13,6 @@ namespace DemoStore.UI
     /// </summary>
     public partial class App : Application
     {
+       public static InvoiceProperty InvoiceProperty { get; set; } = new InvoiceProperty();
     }
 }

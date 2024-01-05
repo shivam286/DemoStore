@@ -3,138 +3,405 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:DemoStore.UI.Views"
              xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
              mc:Ignorable="d" 
-             d:DesignHeight="700" d:DesignWidth="450"
+             d:DesignWidth="450" Height="700"
              >
-    <Border  >
-        <Border.Background >
-            <LinearGradientBrush>
-                <GradientStop Color="White"  Offset="0"/>
-            </LinearGradientBrush>
-        </Border.Background>
-        <Grid Margin="20">
-            <Grid.RowDefinitions>
-                <RowDefinition  Height="100"/>
-                <RowDefinition  Height="100"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="200"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
-                <TextBlock Text="Scan/Enter Barcode" Style="{StaticResource txtBlk}" FontSize="15"/>
-                <TextBox Name="txtBarcode" Style="{StaticResource txtBox}"/>
 
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <Border Background="White" >
+
+            <StackPanel>
+                <Grid Margin="20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition  Height="120"/>
+                        <RowDefinition  Height="80"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.ColumnSpan="2">
+                        <TextBlock Text="Scan/Enter Barcode" Style="{StaticResource txtBlk}" FontSize="15"/>
+                        <Border CornerRadius="15" Style="{StaticResource txtBoxBorder}" >
+
+                            <TextBox Name="txtBarcode" Style="{StaticResource txtBox}" TextChanged="TxtBarcode_TextChanged" >
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="15"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Border>
+
+                    </StackPanel>
+                    
+                    
+                    <StackPanel Orientation="Horizontal" Margin="10,50,5,0">
+                        <fa:IconImage Icon="ShoppingCart" Width="30" Height="30" 
+                                       Margin="0,10,0,0" Foreground="{StaticResource LightForegroundColor}"/>
+                        <TextBlock Text="Your Cart" Margin="10,10,0,0" Style="{StaticResource  controlButtonText}"/>
+                    </StackPanel>
+                    <Button Grid.Column="1" HorizontalAlignment="Right" Padding="5"
+                            x:Name="clearCartBtn" Cursor="Hand"
+                            Style="{StaticResource clearCartBtn}" Margin="0,60,10,0"
+                            Click="ClearCart_Click" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" >
+                            <fa:IconImage Icon="ShoppingCart" Width="20" Height="20" 
+                                          Margin="0,0,5,0" Foreground="#fff"/>
+                            <ContentPresenter Content="Clear Cart" />
+                        </StackPanel>
+                    </Button>
+
+
+                    <StackPanel Grid.Column="0" Margin="5" Grid.Row="1">
+                        <TextBlock Text="Mobile" Style="{StaticResource txtBlk}" FontSize="15"/>
+                        <Border CornerRadius="5" Style="{StaticResource txtBoxBorder}" >
+
+                            <TextBox Name="txtMobile" Style="{StaticResource txtBox}">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Border>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1" Margin="5" Grid.Row="1" >
+                        <TextBlock Text="Name" Style="{StaticResource txtBlk}" FontSize="15"/>
+                        <Border CornerRadius="5" Style="{StaticResource txtBoxBorder}" >
+
+                            <TextBox Name="txtName" Style="{StaticResource txtBox}">
+                                <TextBox.Resources>
+                                    <Style TargetType="{x:Type Border}">
+                                        <Setter Property="CornerRadius" Value="5"/>
+                                    </Style>
+                                </TextBox.Resources>
+                            </TextBox>
+                        </Border>
+                    </StackPanel>
+
+                    <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="130"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition  Height="50"/>
+                            <RowDefinition  Height="*"/>
+                            <RowDefinition  Height="*"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Border Height="1" Background="LightGray"  VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="0"/>
+                        <TextBlock Text="(0)" x:Name="itemCount" Style="{StaticResource txtBlk}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                        <TextBlock  Text="Item Name"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock  Text="Quantity"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock  Text="Price"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+                        <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Row="0"/>
+
+
+                        <ItemsControl x:Name="createCartContainer" ItemsSource="{Binding producsToAdd}" Grid.Row="1" Grid.ColumnSpan="3">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+                                        <Button Cursor="Hand" Click="RemoveProduct_Click" HorizontalAlignment="Left" Tag="{Binding ProductableId}" >
+                                            <Button.Template>
+                                                <ControlTemplate TargetType="Button">
+                                                    <ContentPresenter Content="{TemplateBinding Content}" />
+                                                </ControlTemplate>
+                                            </Button.Template>
+                                            <fa:IconImage Icon="TrashCan" Style="{StaticResource trashIcon}" HorizontalAlignment="Center"/>
+                                        </Button>
+                                        <TextBlock Grid.Column="0" x:Name="productTextBlock" Text="{Binding ProductName}" TextWrapping="Wrap" TextAlignment="Left" Style="{StaticResource txtBlk}" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Left"  Margin="20,0,0,0"/>
+                                        <StackPanel Tag="{Binding ProductableId}" Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,20">
+                                            <Button Content="-" Cursor="Hand" Height="22" Width="22" Background="Black" Foreground="White" FontSize="15" FontWeight="ExtraBold" VerticalContentAlignment="Center" Click="DecreaseQuantity_Click" Tag="{x:Reference quantityTextBox}"/>
+                                            <TextBox x:Name="quantityTextBox" IsReadOnly="True" Height="22" Width="30" Text="{Binding Quantity}" HorizontalAlignment="Center" Style="{StaticResource txtBox}" TextAlignment="Center" VerticalAlignment="Center" FontSize="15"/>
+                                            <Button Content="+" Cursor="Hand" Height="22" Width="22" Background="Black" Foreground="White" FontSize="15" FontWeight="ExtraBold" VerticalContentAlignment="Center" Click="IncreaseQuantity_Click" Tag="{x:Reference quantityTextBox}"/>
+                                        </StackPanel>
+
+                                        <TextBlock Grid.Column="2" x:Name="priceTextBox" TextWrapping="Wrap" TextAlignment="Center" Style="{StaticResource txtBlk}" FontSize="13" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,20,0,20">
+                                            <Run Text="&#x20b9;"/>
+                                            <Run Text="{ Binding TotalPrice}"/>
+                                        </TextBlock>
+                                        <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Row="0"/>
+
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <Grid Grid.Row="2" Grid.ColumnSpan="3">
+                            <Grid.RowDefinitions >
+                                <RowDefinition/>
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+
+                            <StackPanel Margin="0,10,0,0" Grid.Row="0" >
+
+                                <TextBlock Text="Sub Total:" x:Name="subTotalBlock" FontSize="15" Style="{StaticResource txtBlk}"
+                                       VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                                <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Margin="0,10"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="0" Margin="0,10,0,0" >
+
+                                <TextBlock x:Name="subTotalPrice" FontSize="15" Style="{StaticResource txtBlk}" Grid.Row="2"
+                                       VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,0,10,0" FontWeight="Bold">
+                                     <Run Text="&#x20b9;" />
+                                     <Run Text="0.0" />
+                                </TextBlock>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" >
+
+                                <TextBlock Text="Tax(+):" x:Name="taxBlock" FontSize="15" Style="{StaticResource txtBlk}" 
+                                           VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
+                                <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Margin="0,10"/>
+                                <StackPanel>
+
+                                    <ItemsControl x:Name="discountItemsControl">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel>
+                                                    <TextBlock Text="Discount(-)"  FontSize="15" 
+                                                               Style="{StaticResource txtBlk}" VerticalAlignment="Center" 
+                                                               HorizontalAlignment="Left" Margin="10,0,0,0" />
+                                                    <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Margin="0,10"/>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+
+                                </StackPanel>
+                                <TextBlock Text="Grand Total:" x:Name="grandTotalBlock"
+                                            FontSize="15" Style="{StaticResource txtBlk}" 
+                                            VerticalAlignment="Center" HorizontalAlignment="Left"
+                                            Margin="10,0,0,0" />
+                            </StackPanel>
+                            <StackPanel Grid.Row="1">
+
+                                <TextBlock x:Name="taxPrice" FontSize="15" Style="{StaticResource txtBlk}" 
+                                           Grid.Row="2"  VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                           Margin="0,0,10,0" FontWeight="Bold">
+                                     <Run Text="&#x20b9;" />
+                                     <Run Text="0.0" />
+                                </TextBlock>
+                                <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Margin="0,10"/>
+                                <StackPanel >
+
+                                    <ItemsControl x:Name="discountPriceItemsControl">
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+
+                                                <StackPanel>
+
+                                                    <TextBlock Grid.Column="3" Foreground="{StaticResource ForegroundColor}" 
+                                                               FontSize="15" Style="{StaticResource txtBlk}" VerticalAlignment="Center" 
+                                                               HorizontalAlignment="Right" Margin="0,0,10,0" FontWeight="Bold">
+                                                         <Run Text="&#x20b9;" />
+                                                         <Run Text="{Binding AppliedDiscount}" />
+                                                    </TextBlock>
+                                                    <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Margin="0,10"/>
+
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <TextBlock x:Name="grandTotalPrice" 
+                                               Foreground="#55ce63" FontSize="20" Style="{StaticResource txtBlk}" 
+                                                HorizontalAlignment="Right" 
+                                                Margin="0,0,10,0"  FontWeight="ExtraBold">
+                                         <Run Text="&#x20b9;" />
+                                         <Run Text="0.0" />
+                                    </TextBlock>
+                                </StackPanel>
+
+                            </StackPanel>
+
+
+                        </Grid>
+                        <ComboBox x:Name="discountCmbBox" Grid.Row="3" Margin="10,10,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="30">
+                            <ComboBoxItem Content="Percent" IsSelected="true"></ComboBoxItem>
+                            <ComboBoxItem Content="Flat"></ComboBoxItem>
+                        </ComboBox>
+
+                        <Border BorderThickness="1" BorderBrush="{StaticResource HoverBackgroundColor}" CornerRadius="3" Grid.Row="3" Grid.Column="1" Margin="0,10,0,0" >
+
+                            <TextBox x:Name="discountTxtBox"  VerticalAlignment="Top" Height="30" Style="{StaticResource txtBox}"/>
+
+                        </Border>
+                        <Button x:Name="applyBtn" Grid.Row="3" Content="Apply" 
+                                Grid.Column="2" Margin="10,10,0,0"  
+                                Style="{StaticResource btnStyle}"
+                                Click="ApplyDiscount_Click" Cursor="Hand">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="0,5,5,0">
+                                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    </Border>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+
+
+                    </Grid>
+                    <Border Height="1" Background="LightGray"  VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="3" Margin="0,10,0,0"/>
+
+                    <TextBlock Text="Payment Mode" Grid.Row="3" Style="{StaticResource txtBlk}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
+
+                    <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Row="3"/>
+
+                    <!--<WrapPanel HorizontalAlignment="Stretch" Grid.Row="4" 
+                               VerticalAlignment="Top" Margin="10,10,10,10" 
+                               Orientation="Horizontal" Grid.ColumnSpan="2">
+
+                        <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="MoneyBill" Style="{StaticResource paymentIcon}"/>
+                                <TextBlock Text="Cash" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+
+                        </Button>
+                        <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="CreditCard" Style="{StaticResource paymentIcon}"/>
+                                <TextBlock Text="Card" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+
+                        </Button>
+                        <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage Icon="Computer" Style="{StaticResource paymentIcon}"/>
+                                <TextBlock Text="Online" Style="{StaticResource menuButtonText}"/>
+                            </StackPanel>
+
+                        </Button>
+
+
+                    </WrapPanel>-->
+
+
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2">
+                        
+                    <WrapPanel HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Top" 
+                               Margin="10,10,10,10" Orientation="Horizontal" x:Name="paymentOptions">
+                        <RadioButton Height="40" Margin="10,10,20,10" Name="cashRadioBtn"
+                                     Style="{StaticResource paymentButton}" Checked="RadioButton_Checked"
+                                     Tag="{StaticResource ForegroundColor}" 
+                                     GroupName="PaymentOptions" Cursor="Hand">
+                            <StackPanel Orientation="Horizontal"  Margin="5,0,10,0">
+                                <fa:IconImage Icon="MoneyBill" Style="{StaticResource paymentIcon}" />
+                                <TextBlock Text="Cash" Style="{StaticResource menuButtonText}"  x:Name="cashTxtBlk"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Height="40" Margin="10,10,20,10" Style="{StaticResource paymentButton}" 
+                                     Tag="{StaticResource ForegroundColor}" Checked="RadioButton_Checked"
+                                     GroupName="PaymentOptions" Cursor="Hand" Name="cardRadioBtn">
+                            <StackPanel Orientation="Horizontal" Margin="5,0,10,0">
+                                <fa:IconImage Icon="CreditCard" Style="{StaticResource paymentIcon}" />
+                                <TextBlock Text="Card" Style="{StaticResource menuButtonText}" Name="cardTxtBlk"/>
+                            </StackPanel>
+                        </RadioButton>
+                        <RadioButton Height="40" Margin="10,10,20,10" Style="{StaticResource paymentButton}" 
+                                     Tag="{StaticResource ForegroundColor}" GroupName="PaymentOptions"  
+                                     Cursor="Hand" Checked="RadioButton_Checked" Name="onlineRadioBtn">
+                            <StackPanel Orientation="Horizontal"  Margin="5,0,10,0">
+                                <fa:IconImage Icon="Bank" Style="{StaticResource paymentIcon}" />
+                                <TextBlock Text="Online" Style="{StaticResource menuButtonText}" Name="onlineTxtBlk"/>
+                            </StackPanel>
+                        </RadioButton>
+
+                            <RadioButton Height="40" Margin="10,10,20,10" Style="{StaticResource paymentButton}" 
+                                         Tag="{StaticResource ForegroundColor}" GroupName="PaymentOptions"  
+                                         Cursor="Hand" Checked="RadioButton_Checked" Name="dueRadioBtn">
+                                <StackPanel Orientation="Horizontal"  Margin="5,0,10,0">
+                                    <fa:IconImage Icon="Ils" Style="{StaticResource paymentIcon}" />
+                                    <TextBlock Text="Due" Style="{StaticResource menuButtonText}" Name="dueTxtBlk"/>
+                                </StackPanel>
+                            </RadioButton>
+                            <RadioButton Height="40" Margin="10,10,20,10" Style="{StaticResource paymentButton}" 
+                                         Tag="{StaticResource ForegroundColor}" GroupName="PaymentOptions"  
+                                         Cursor="Hand" Checked="RadioButton_Checked" Name="partialRadioBtn">
+                                <StackPanel Orientation="Horizontal"  Margin="5,0,10,0">
+                                    <fa:IconImage Icon="Adjust" Style="{StaticResource paymentIcon}" />
+                                    <TextBlock Text="Partially" Style="{StaticResource menuButtonText}" Name="partialTxtBlk"/>
+                                </StackPanel>
+                            </RadioButton>
+                          
+                        </WrapPanel>
+                        <StackPanel Visibility="Collapsed" Name="partialAmountPanel">
+                            <TextBlock Text="Amount:"  Style="{StaticResource menuButtonText}"/>
+                            <Border BorderThickness="1" BorderBrush="{StaticResource HoverBackgroundColor}" CornerRadius="3" Grid.Row="3" Grid.Column="1" Margin="0,10,0,0" >
+
+
+                                <TextBox x:Name="amountTxtBox" Text="0.00" Style="{StaticResource txtBox}" />
+                        </Border>
+                        </StackPanel>
+                        <WrapPanel HorizontalAlignment="Center" Grid.Row="4" VerticalAlignment="Top" Margin="10,10,10,10" 
+                               Orientation="Horizontal" Grid.ColumnSpan="2" Visibility="Collapsed" x:Name="onlinePaymentOptions">
+
+                            <RadioButton Height="40" Margin="10,0" Style="{StaticResource onlinePaymentButton}" 
+                                    Tag="{StaticResource ForegroundColor}" GroupName="PaymentOptions"  
+                                    Cursor="Hand" Checked="RadioButton_Checked" Name="paytmRadioBtn">
+                                <Image Source="/images/paytm.png"  Width="58" Height="30"/>
+
+                            </RadioButton>
+
+                            <RadioButton Height="40" Margin="10,0" Style="{StaticResource onlinePaymentButton}" 
+                                     Tag="{StaticResource ForegroundColor}" GroupName="PaymentOptions"  
+                                     Cursor="Hand" Checked="RadioButton_Checked" Name="phonepeRadioBtn">
+                                <Image Source="/images/phonepe.png"  Width="60" Height="40"/>
+
+                            </RadioButton>
+     
+                            <RadioButton Height="40" Style="{StaticResource onlinePaymentButton}" Margin="10,0"
+                                         Tag="{StaticResource ForegroundColor}" GroupName="PaymentOptions"  
+                                         Cursor="Hand" Checked="RadioButton_Checked" Name="googlePayRadioBtn">
+                                <Image Source="/images/GooglePe.png"  Width="60" Height="40"/>
+
+                            </RadioButton>
+                            <RadioButton Height="40" Style="{StaticResource onlinePaymentButton}" Margin="10,0"
+                                          GroupName="PaymentOptions"  
+                                         Cursor="Hand" Checked="RadioButton_Checked" Name="bhimRadioBtn">
+                                <Image Source="/images/Bhim.png"  Width="60" Height="40"/>
+                                
+                            </RadioButton>
+                        </WrapPanel>
+
+                    <Button Content="Place Order"  Grid.Row="4" Click="PaymentButton_Click"
+                            Grid.ColumnSpan="3" Width="330" 
+                            Margin="10,0,0,10" Cursor="Hand"
+                            Style="{StaticResource btnStyle}" 
+                            Tag="{StaticResource ForegroundColor}" 
+                            HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+
+                    </StackPanel>
+                </Grid>
             </StackPanel>
-
-
-            <StackPanel Grid.Column="0" Margin="5" Grid.Row="1">
-                <TextBlock Text="Mobile" Style="{StaticResource txtBlk}" FontSize="15"/>
-                <TextBox Name="txtMobile" Style="{StaticResource txtBox}"/>
-            </StackPanel>
-            <StackPanel Grid.Column="1" Margin="5" Grid.Row="1" >
-                <TextBlock Text="Name" Style="{StaticResource txtBlk}" FontSize="15"/>
-                <TextBox Name="txtName" Style="{StaticResource txtBox}"/>
-            </StackPanel>
-
-            <Grid Grid.Row="2" Grid.ColumnSpan="2">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="150"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition  Height="50"/>
-                    <RowDefinition  Height="50"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Border Height="1" Background="LightGray"  VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="0"/>
-
-                <TextBlock  Text="Item Name"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock  Text="Quantity"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock  Text="Price"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-
-                <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Row="0"/>
-
-                <TextBlock Text="Grand Total" FontSize="15" Style="{StaticResource txtBlk}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" />
-                <TextBlock Text="0.0" FontSize="15" Style="{StaticResource txtBlk}" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="3" Margin="0,0,10,0" />
-
-                <ComboBox Grid.Row="2" Margin="10,10,0,0" Name="ComboBox1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="30">
-                    <ComboBoxItem Content="Percent" IsSelected="true"></ComboBoxItem>
-                    <ComboBoxItem Content="Flat"></ComboBoxItem>
-                </ComboBox>
-
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" VerticalAlignment="Top" Height="30" Style="{StaticResource txtBox}"/>
-                <!--<Button Content="Apply" Grid.Row="2" Grid.Column="2" VerticalAlignment="Top" Height="30" Width="100" Margin="10,10,0,10" Background="Yellow" Foreground="Black"/>-->
-
-                <Button Grid.Row="2" Grid.Column="2" Margin="10,10,0,0" VerticalAlignment="Top" Height="30" Style="{StaticResource paymentButton}" Background="#FBB040" >
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Apply" Style="{StaticResource menuButtonText}" Tag="{StaticResource ForegroundColor}"/>
-                    </StackPanel>
-                </Button>
-
-            </Grid>
-            <Border Height="1" Background="LightGray"  VerticalAlignment="Top" Grid.ColumnSpan="3" Grid.Row="3" Margin="0,10,0,0"/>
-
-            <TextBlock Text="Payment Mode" Grid.Row="3" Style="{StaticResource txtBlk}" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0"/>
-
-            <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="3" Grid.Row="3"/>
-
-            <WrapPanel HorizontalAlignment="Stretch" Grid.Row="4" VerticalAlignment="Top" Margin="10,10,10,10" Orientation="Horizontal" Grid.ColumnSpan="2">
-                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="MoneyBill" Style="{StaticResource paymentIcon}"/>
-                        <TextBlock Text="Cash" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-
-                </Button>
-                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="CreditCard" Style="{StaticResource paymentIcon}"/>
-                        <TextBlock Text="Card" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-
-                </Button>
-                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="Computer" Style="{StaticResource paymentIcon}"/>
-                        <TextBlock Text="Online" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-
-                </Button>
-
-                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="CircleXmark" Style="{StaticResource paymentIcon}"/>
-                        <TextBlock Text="Due" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-
-                </Button>
-                <Button  Height="30" Width="100" Margin="10,10,20,10" Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}">
-                    <StackPanel Orientation="Horizontal">
-                        <fa:IconImage Icon="CircleHalfStroke" Style="{StaticResource paymentIcon}"/>
-                        <TextBlock Text="Partially" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-
-                </Button>
-
-
-            </WrapPanel>
-
-
-            <Button Grid.Row="4"  Grid.ColumnSpan="2" Background="#FBB040" Height="30" Width="250" Margin="10,10,10,10"  Style="{StaticResource paymentButton}" Tag="{StaticResource ForegroundColor}" HorizontalAlignment="Center" VerticalAlignment="Bottom">
-                    <StackPanel Orientation="Horizontal">
-                       <TextBlock Text="Place Order" Style="{StaticResource menuButtonText}"/>
-                    </StackPanel>
-                </Button>
-
-
-
-        </Grid>
-    </Border>
+        </Border>
+    </ScrollViewer>
 </UserControl>

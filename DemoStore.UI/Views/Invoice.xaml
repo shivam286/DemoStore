@@ -1,0 +1,195 @@
+﻿<UserControl x:Class="DemoStore.UI.Views.Invoice"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:fa="http://schemas.awesome.incremented/wpf/xaml/fontawesome.sharp"
+             Height="700" Width="420" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="50" />
+        </Grid.RowDefinitions>
+            <Border BorderBrush="LightGray" BorderThickness="1">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+
+            
+            <StackPanel>
+
+
+                <Grid x:Name="printGrid" VerticalAlignment="Center">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="80" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                        <StackPanel Grid.Row="0" Grid.ColumnSpan="3" Background="WhiteSmoke" >
+                            <TextBlock Text="Order Summary" Style="{StaticResource cardTextBlk}" 
+                                   FontSize="25" Margin="0,27.5" />
+                        </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="3" Margin="10">
+
+                        <Border BorderBrush="LightGray" BorderThickness="1">
+
+
+                            <Grid Grid.Row="1" >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="80"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <StackPanel Grid.Row="0" Background="WhiteSmoke">
+                                        <TextBlock Text="Order Items:" 
+                                               Style="{StaticResource cardTextBlk}" FontSize="25"/>
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="0" Background="WhiteSmoke" >
+                                    <TextBlock Text="Order Items:" Margin="0,27.5" 
+                                               Style="{StaticResource cardTextBlk}" FontSize="25"/>
+                                </StackPanel>
+                                <Grid Grid.Row="1" Grid.ColumnSpan="3" >
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30"/>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition  Height="80"/>
+                                        <RowDefinition  Height="*"/>
+                                        <RowDefinition  Height="50"/>
+                                        <RowDefinition Height="50"/>
+                                        <RowDefinition Height="80"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Border Height="1" Background="LightGray"  VerticalAlignment="Top" Grid.ColumnSpan="5" Grid.Row="0" Margin="5,10"/>
+                                    <TextBlock Text="#" x:Name="itemCount" Style="{StaticResource txtBlk}" FontSize="15" Margin="10" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+                                    <TextBlock  Text="ITEM "  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                                    <TextBlock  Text="UNIT COST"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock  Text="QUANTITY"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <TextBlock  Text="TOTAL"  Style="{StaticResource txtBlk}" FontSize="15" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+
+                                        <ItemsControl x:Name="createInvoiceContainer" ItemsSource="{Binding producsToAdd}" Grid.Row="1" Grid.ColumnSpan="5" Margin="0,0,0,40">
+                                            <ItemsControl.ItemTemplate>
+                                                <DataTemplate>
+                                                    <Grid>
+                                                        <Grid.RowDefinitions>
+                                                            <RowDefinition Height="Auto"/>
+                                                        </Grid.RowDefinitions>
+                                                        <Grid.ColumnDefinitions>
+                                                            <ColumnDefinition Width="30"/>
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                            <ColumnDefinition />
+                                                        </Grid.ColumnDefinitions>
+
+                                                        <TextBlock Grid.Column="0" x:Name="serialNumber" Text="1" TextAlignment="Left" 
+                                                                   Style="{StaticResource txtBlk}" FontSize="15" VerticalAlignment="Center"
+                                                                   HorizontalAlignment="Left"  Margin="10"/>
+                                                        <TextBlock Grid.Column="1" x:Name="productTextBlock" Text="{Binding ProductName}"
+                                                                   TextWrapping="Wrap" TextAlignment="Left" Style="{StaticResource txtBlk}" 
+                                                                   FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"  />
+                                                        <TextBlock Grid.Column="2" x:Name="unitCost" Text="{Binding UnitPrice}" 
+                                                                   TextWrapping="Wrap" TextAlignment="Left" Style="{StaticResource txtBlk}" 
+                                                                   FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"  />
+                                                        <TextBlock Grid.Column="3" x:Name="quantity" Text="{Binding Quantity}" TextWrapping="Wrap" 
+                                                                   TextAlignment="Left" Style="{StaticResource txtBlk}" FontSize="15" VerticalAlignment="Center" 
+                                                                   HorizontalAlignment="Center"  />
+                                                        <TextBlock Grid.Column="4" x:Name="priceTextBox" TextWrapping="Wrap" TextAlignment="Center" 
+                                                                   Style="{StaticResource txtBlk}" FontSize="15" VerticalAlignment="Center" 
+                                                                   HorizontalAlignment="Center" >
+                                                                   <Run Text="&#x20b9;"/>
+                                                                   <Run Text="{ Binding TotalPrice}"/>
+                                                        </TextBlock>
+
+                                                    </Grid>
+                                                </DataTemplate>
+                                            </ItemsControl.ItemTemplate>
+                                        </ItemsControl>
+
+
+                                        <Border Height="1" Background="LightGray"  VerticalAlignment="Bottom" Grid.ColumnSpan="5"  Margin="5"/>
+
+                                    <StackPanel Background="WhiteSmoke" Grid.Row="2"  Grid.ColumnSpan="5" >
+
+                                        <TextBlock Text="Sub Total:" x:Name="subTotalBlock" FontSize="15" Style="{StaticResource txtBlk}"
+                                        HorizontalAlignment="Left" Margin="30,15,0,0" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="2" Grid.ColumnSpan="5" >
+
+                                        <TextBlock  FontSize="15" Style="{StaticResource txtBlk}" Grid.Row="2"
+                                        VerticalAlignment="Center" HorizontalAlignment="Right" Margin="0,15,30,0" FontWeight="Bold">
+                                    <Run Text="&#x20b9;" />
+                                    <TextBlock Text="{Binding SubTotal}" x:Name="subTotalPrice" />
+                                        </TextBlock>
+                                    </StackPanel>
+
+
+                                    <StackPanel Grid.Row="3" Grid.ColumnSpan="5" Background="WhiteSmoke">
+                                        <TextBlock Text="Tax(+):" x:Name="taxBlock" FontSize="15" 
+                                       Style="{StaticResource txtBlk}" HorizontalAlignment="Left" 
+                                       Margin="30,15,0,0" />
+                                    </StackPanel>
+
+                                    <StackPanel Grid.Row="3" Grid.ColumnSpan="5" >
+
+                                        <TextBlock  FontSize="15" Style="{StaticResource txtBlk}" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                       Margin="0,15,30,0" FontWeight="Bold">
+                                       <Run Text="&#x20b9;" />
+                                       <TextBlock Text="{Binding TaxTotal}" x:Name="taxPrice" />
+                                        </TextBlock>
+                                    </StackPanel>
+
+                                    <StackPanel Background="WhiteSmoke" Grid.Row="4" Grid.ColumnSpan="5">
+                                        <TextBlock Text="Grand Total:" x:Name="grandTotalBlock" FontSize="15" 
+                                       Style="{StaticResource txtBlk}" HorizontalAlignment="Left" 
+                                       Margin="30,15,0,0" FontWeight="ExtraBold"/>
+                                    </StackPanel>
+
+                                    <Border  Grid.Row="4" Grid.ColumnSpan="5" BorderBrush="LightGray" Height="1" VerticalAlignment="top" BorderThickness="10" Margin="5"/>
+                                    <StackPanel Grid.Row="4" Grid.ColumnSpan="5" >
+
+                                            <TextBlock  Foreground="#55ce63" FontSize="20" Style="{StaticResource txtBlk}" 
+                                       VerticalAlignment="Center" HorizontalAlignment="Right" 
+                                       Margin="0,15,30,0" FontWeight="ExtraBold">
+                                      <Run Text="&#x20b9;" />
+                                      <TextBlock Text="{Binding GrandTotal}" x:Name="grandTotalPrice" />
+                                        </TextBlock>
+                                    </StackPanel>
+
+
+
+                                </Grid>
+                            </Grid>
+
+                        </Border>
+
+                    </StackPanel>
+
+                </Grid>
+
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10,20">
+
+                        <Button Width="200" Height="45" Background="Black" Cursor="Hand" Click="PrintBtn">
+                            <StackPanel Orientation="Horizontal">
+                                <fa:IconImage  Icon="Print" Foreground="White" Style="{StaticResource iconButtonIcon}"/>
+                                <TextBlock Text="Print" FontSize="20" FontWeight="Bold" Foreground="White" Padding="5"/>
+
+                            </StackPanel>
+                        </Button>
+                        <Button Content="New Order" Width="200" Height="45" Cursor="Hand"
+                                            Background="{StaticResource HoverBackgroundColor}" 
+                                            FontSize="20" FontWeight="Bold" Click="NewOrder_Click" />
+                    </StackPanel>
+                </StackPanel>
+
+
+        </ScrollViewer>
+        </Border>
+
+
+    </Grid>
+</UserControl>
