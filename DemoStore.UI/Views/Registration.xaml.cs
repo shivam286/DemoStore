@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Net.NetworkInformation;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -14,6 +15,8 @@ namespace DemoStore.UI.Views
     {
         public MainWindow mainWindow;
 
+        private MainViewModel _networkHandler;
+
         public ObservableCollection<CartItem> producsToAdd;
         public ObservableCollection<Cart> cart = new();
         private readonly CartViewModel _cartVM;
@@ -21,10 +24,12 @@ namespace DemoStore.UI.Views
         private readonly OrderViewModel _orderVM;
         private readonly UserViewModel _userVM;
         private readonly InvoiceProperty _invoice;
+        private Queue<Order> _orders;
         string paymentMethod;
        
         public Registration()
         {
+            NetworkChange.NetworkAvailabilityChanged += NetworkAvailabilityChangedHandler;
 
             InitializeComponent();
             _cartVM = new CartViewModel();
@@ -32,8 +37,29 @@ namespace DemoStore.UI.Views
             _orderVM = new OrderViewModel();
             _userVM = new UserViewModel();
             _invoice = App.InvoiceProperty;
+            _networkHandler = new();
+            _orders = new();
             mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
             if (mainWindow!=null) producsToAdd = mainWindow.CartItemsCollection;
+        }
+
+        private void NetworkAvailabilityChangedHandler(object? sender, NetworkAvailabilityEventArgs e)
+        {
+            if (_networkHandler.IsOnline)
+            {
+                try
+                {
+                    foreach (Order o in _orders)
+                    {
+                        //send data to api
+                        //dequeue the _orderList
+                    }
+                }
+                catch (Exception ex)
+                {
+
+                }
+            }
         }
 
         public void CreateCartProducts(Product products)
@@ -424,7 +450,12 @@ namespace DemoStore.UI.Views
                     };
                     _orderVM.AddOrder(order);
 
+                    //make a queue and insert object
+
+                    _orders.Enqueue(order);
+
                     List<OrderItem> orderItems = new();
+
                     foreach(var item in producsToAdd)
                     {
                         orderItems.Add(new OrderItem {

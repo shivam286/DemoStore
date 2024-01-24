@@ -15,7 +15,10 @@ namespace DemoStore.Repository.Repos
         }
         public List<Product> GetProducts()
         {
-            return _context.Products.ToList();
+            var test = _context.Products;
+            if (test != null)
+                return test.ToList();
+            return null;
         }
         public Product? GetProductById(long id)
         {

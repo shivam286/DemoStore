@@ -42,7 +42,7 @@
                             <GradientStop Color="White"  Offset="0"/>
                         </LinearGradientBrush>
                     </Border.Background>
-                
+
                     <StackPanel>
 
                         <StackPanel Orientation="Horizontal"
@@ -67,10 +67,10 @@
                         <ScrollViewer VerticalScrollBarVisibility="Auto" Height="800" VerticalAlignment="Top">
                             <StackPanel>
 
-                                
+
                                 <RadioButton  Width="200" Style="{StaticResource menuButton}" IsChecked="True"
                                                     HorizontalAlignment="Left" Cursor="Hand" BorderThickness="0" GroupName="categoryBtn"
-                                                     Tag="{StaticResource ForegroundColor}" Click="RadioButton_Click" HorizontalContentAlignment="Left">
+                                                     Tag="{StaticResource ForegroundColor}" Click="RadioButton_Click" HorizontalContentAlignment="Left" Checked="RadioButton_Checked">
                                     <TextBlock Margin="20,0,0,0" Text="All Categories" x:Name="categoryBtn" Style="{StaticResource menuButtonText}" />
 
                                 </RadioButton>
@@ -82,7 +82,7 @@
                                                     HorizontalAlignment="Left" Cursor="Hand" BorderThickness="0" GroupName="categoryBtn"
                                                      Tag="{StaticResource ForegroundColor}" Click="RadioButton_Click" HorizontalContentAlignment="Left">
                                                 <TextBlock Margin="20,0,0,0" Text="{Binding Text}" x:Name="categoryBtn" Style="{StaticResource menuButtonText}" />
-                                                
+
                                             </RadioButton>
                                         </DataTemplate>
                                     </ItemsControl.ItemTemplate>
@@ -112,6 +112,19 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition  Width="430"/>
                         </Grid.ColumnDefinitions>
+                        <StatusBar x:Name="ConnectionStatus"
+                                   Grid.Row="0"
+                                   Grid.Column="0"
+                                   FlowDirection="LeftToRight"
+                                   Background="{x:Null}"
+                                   Margin="0,0,5,0">
+                            <StatusBarItem>
+                                <Image x:Name="statusIndicator" Width="20" Height="20" Source="images/Green.png"/>
+                            </StatusBarItem>
+                            <StatusBarItem>
+                                <TextBlock x:Name="statusText" Text="Network Status: Unknown"/>
+                            </StatusBarItem>
+                        </StatusBar>
                         <StackPanel x:Name="pnlControlBar"
                                 Grid.Row="0"
                                 Grid.Column="1"
@@ -153,7 +166,7 @@
                                 FlowDirection="RightToLeft"
                                 VerticalAlignment="Center"
                                 Margin="0,0,10,0">
-                            
+
                             <TextBlock Text="Test User" x:Name="userName"
                                        Foreground="{StaticResource ForegroundColor}"
                                        FontFamily="Montserrat"

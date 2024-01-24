@@ -28,7 +28,7 @@ namespace DemoStore.Repository.Repos
         {
             var cart = new Cart()
             {
-                UserId = Userid,
+                //UserId = Userid,
                 CreatedAt = DateTime.Now,
                 CartableType = "AdminUser",
                 Total = (decimal)0.0,

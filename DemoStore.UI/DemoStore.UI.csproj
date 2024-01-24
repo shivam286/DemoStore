@@ -10,13 +10,18 @@
   <ItemGroup>
     <None Remove="images\Bhim.png" />
     <None Remove="images\GooglePe.png" />
+    <None Remove="images\Green.png" />
     <None Remove="images\logo.png" />
     <None Remove="images\paytm.png" />
     <None Remove="images\PhonePe.png" />
     <None Remove="images\profileImage.png" />
+    <None Remove="images\red.png" />
   </ItemGroup>
 
   <ItemGroup>
+    <Resource Include="images\Green.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="images\logo.png" />
     <Resource Include="images\PhonePe.png" />
   </ItemGroup>
@@ -34,6 +39,9 @@
     <Resource Include="images\GooglePe.png" />
     <Resource Include="images\paytm.png" />
     <Resource Include="images\profileImage.png" />
+    <Resource Include="images\red.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
 
 </Project>

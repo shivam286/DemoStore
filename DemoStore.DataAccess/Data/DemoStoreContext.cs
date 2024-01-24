@@ -131,9 +131,13 @@ public partial class DemoStoreContext : DbContext
     public virtual DbSet<ZipCode> ZipCodes { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseNpgsql("Host=localhost;Port=5000;Database=DemoStore;Username=postgres;Password=Nikita@123");
+    {
 
+        optionsBuilder.UseSqlite("Data Source=C:\\Users\\Rails-124\\source\\repos\\DemoStore\\DemoStore.DataAccess\\StoreDatabase.db");
+
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+//        => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=DemoStore;Username=postgres;Password=rails");
+    }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<ActiveAdminComment>(entity =>
@@ -151,21 +155,21 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AuthorId).HasColumnName("author_id");
             entity.Property(e => e.AuthorType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("author_type");
             entity.Property(e => e.Body).HasColumnName("body");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Namespace)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("namespace");
             entity.Property(e => e.ResourceId).HasColumnName("resource_id");
             entity.Property(e => e.ResourceType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("resource_type");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -185,11 +189,11 @@ public partial class DemoStoreContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.RecordId).HasColumnName("record_id");
             entity.Property(e => e.RecordType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("record_type");
 
             entity.HasOne(d => d.Blob).WithMany(p => p.ActiveStorageAttachments)
@@ -209,23 +213,23 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ByteSize).HasColumnName("byte_size");
             entity.Property(e => e.Checksum)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("checksum");
             entity.Property(e => e.ContentType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("content_type");
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("created_at");
             entity.Property(e => e.Filename)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("filename");
             entity.Property(e => e.Key)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("key");
             entity.Property(e => e.Metadata).HasColumnName("metadata");
             entity.Property(e => e.ServiceName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("service_name");
         });
 
@@ -240,7 +244,7 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BlobId).HasColumnName("blob_id");
             entity.Property(e => e.VariationDigest)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("variation_digest");
 
             entity.HasOne(d => d.Blob).WithMany(p => p.ActiveStorageVariantRecords)
@@ -259,39 +263,39 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AddressLine1)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("address_line_1");
             entity.Property(e => e.AddressLine2)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("address_line_2");
             entity.Property(e => e.City)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("city");
             entity.Property(e => e.Country)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("country");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.FullName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("full_name");
             entity.Property(e => e.Landmark)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("landmark");
             entity.Property(e => e.MobileNumber)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("mobile_number");
             entity.Property(e => e.Pincode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("pincode");
             entity.Property(e => e.PosUserId).HasColumnName("pos_user_id");
             entity.Property(e => e.State)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("state");
             entity.Property(e => e.StateId).HasColumnName("state_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -312,15 +316,15 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasDefaultValueSql("''::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("''::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.EncryptedPassword)
-                .HasDefaultValueSql("''::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("''::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("encrypted_password");
             entity.Property(e => e.RememberCreatedAt)
                 .HasColumnType("timestamp without time zone")
@@ -329,13 +333,13 @@ public partial class DemoStoreContext : DbContext
                 .HasColumnType("timestamp without time zone")
                 .HasColumnName("reset_password_sent_at");
             entity.Property(e => e.ResetPasswordToken)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("reset_password_token");
             entity.Property(e => e.Role)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("role");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -346,16 +350,16 @@ public partial class DemoStoreContext : DbContext
             entity.ToTable("ar_internal_metadata", "sonusingh2");
 
             entity.Property(e => e.Key)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("key");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.Value)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("value");
         });
 
@@ -369,19 +373,19 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.ExecuteAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("execute_at");
             entity.Property(e => e.Interval)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("interval");
             entity.Property(e => e.Job)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("job");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -394,13 +398,13 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BannerType).HasColumnName("banner_type");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -413,10 +417,10 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BannerId).HasColumnName("banner_id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -428,13 +432,13 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -454,19 +458,19 @@ public partial class DemoStoreContext : DbContext
                 .HasDefaultValueSql("0.0")
                 .HasColumnName("applied_discount");
             entity.Property(e => e.CartToken)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("cart_token");
             entity.Property(e => e.CartableId).HasColumnName("cartable_id");
             entity.Property(e => e.CartableType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("cartable_type");
             entity.Property(e => e.CouponId).HasColumnName("coupon_id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DiscountPercent).HasColumnName("discount_percent");
             entity.Property(e => e.DiscountType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("discount_type");
             entity.Property(e => e.ShippingCharge)
                 .HasDefaultValueSql("0.0")
@@ -481,10 +485,10 @@ public partial class DemoStoreContext : DbContext
                 .HasColumnName("total_with_tax");
             entity.Property(e => e.TotalWithoutDiscount).HasColumnName("total_without_discount");
             entity.Property(e => e.TransactionId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("transaction_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -504,15 +508,15 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CartId).HasColumnName("cart_id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.PriceWithoutTax).HasColumnName("price_without_tax");
             entity.Property(e => e.ProductName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("product_name");
             entity.Property(e => e.ProductableId).HasColumnName("productable_id");
             entity.Property(e => e.ProductableType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("productable_type");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.TaxAmount)
@@ -522,7 +526,7 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.TotalWithoutDiscount).HasColumnName("total_without_discount");
             entity.Property(e => e.UnitPrice).HasColumnName("unit_price");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -539,11 +543,11 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -555,14 +559,14 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.ParentId).HasColumnName("parent_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -574,14 +578,14 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.StateId).HasColumnName("state_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -594,16 +598,16 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Content).HasColumnName("content");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Slug)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("slug");
             entity.Property(e => e.Title)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("title");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -615,22 +619,22 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.FullPhoneNumber)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("full_phone_number");
             entity.Property(e => e.Message)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("message");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });
@@ -645,35 +649,35 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("amount");
             entity.Property(e => e.Code)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("code");
             entity.Property(e => e.CouponType).HasColumnName("coupon_type");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("description");
             entity.Property(e => e.ExpireAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("expire_at");
             entity.Property(e => e.MaxCartValue).HasColumnName("max_cart_value");
             entity.Property(e => e.MinCartValue).HasColumnName("min_cart_value");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.PerUserUsage)
                 .HasDefaultValueSql("1")
                 .HasColumnName("per_user_usage");
             entity.Property(e => e.PosUserId).HasColumnName("pos_user_id");
             entity.Property(e => e.StartAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("start_at");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UsageCount).HasColumnName("usage_count");
             entity.Property(e => e.UsageLimit).HasColumnName("usage_limit");
@@ -705,22 +709,22 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BuisnessName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("buisness_name");
             entity.Property(e => e.City)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("city");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.MobileNumber)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("mobile_number");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -733,16 +737,16 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Body).HasColumnName("body");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Subject)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("subject");
             entity.Property(e => e.TemplateName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("template_name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -755,13 +759,13 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Answer).HasColumnName("answer");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Question)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("question");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -773,11 +777,11 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Status).HasColumnName("status");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -789,16 +793,16 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.Presentation)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("presentation");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -810,12 +814,12 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.OptionTypeId).HasColumnName("option_type_id");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -827,17 +831,17 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Display)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("display");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.OptionTypeId).HasColumnName("option_type_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -849,11 +853,11 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.OptionValueId).HasColumnName("option_value_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.VariantId).HasColumnName("variant_id");
         });
@@ -872,28 +876,28 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.AdminUserId).HasColumnName("admin_user_id");
             entity.Property(e => e.AppliedDiscount).HasColumnName("applied_discount");
             entity.Property(e => e.Awb)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("awb");
             entity.Property(e => e.Breadth).HasColumnName("breadth");
             entity.Property(e => e.CancelledAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("cancelled_at");
             entity.Property(e => e.CartId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("cart_id");
             entity.Property(e => e.ConfirmedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("confirmed_at");
             entity.Property(e => e.CouponId).HasColumnName("coupon_id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeliveredAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("delivered_at");
             entity.Property(e => e.DiscountPercent).HasColumnName("discount_percent");
             entity.Property(e => e.DiscountType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("discount_type");
             entity.Property(e => e.DueAmount)
                 .HasDefaultValueSql("0.0")
@@ -901,39 +905,39 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Height).HasColumnName("height");
             entity.Property(e => e.Length).HasColumnName("length");
             entity.Property(e => e.OutForDeliveryAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("out_for_delivery_at");
             entity.Property(e => e.PaymentId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("payment_id");
             entity.Property(e => e.PaymentMerchant)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("payment_merchant");
             entity.Property(e => e.PaymentMethod)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("payment_method");
             entity.Property(e => e.PlacedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("placed_at");
             entity.Property(e => e.PosOrder)
                 .HasDefaultValueSql("false")
                 .HasColumnName("pos_order");
             entity.Property(e => e.PosUserId).HasColumnName("pos_user_id");
             entity.Property(e => e.RefundedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("refunded_at");
             entity.Property(e => e.ReturnedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("returned_at");
             entity.Property(e => e.ShippedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("shipped_at");
             entity.Property(e => e.ShippingCharge).HasColumnName("shipping_charge");
             entity.Property(e => e.ShippmentId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("shippment_id");
             entity.Property(e => e.Status)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("status");
             entity.Property(e => e.SubTotal).HasColumnName("sub_total");
             entity.Property(e => e.Total).HasColumnName("total");
@@ -942,10 +946,10 @@ public partial class DemoStoreContext : DbContext
                 .HasDefaultValueSql("0.0")
                 .HasColumnName("total_with_tax");
             entity.Property(e => e.TransactionId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("transaction_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
             entity.Property(e => e.Weight).HasColumnName("weight");
@@ -967,39 +971,39 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AddressLine1)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("address_line_1");
             entity.Property(e => e.AddressLine2)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("address_line_2");
             entity.Property(e => e.City)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("city");
             entity.Property(e => e.Country)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("country");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.FullName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("full_name");
             entity.Property(e => e.Landmark)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("landmark");
             entity.Property(e => e.MobileNumber)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("mobile_number");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.Pincode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("pincode");
             entity.Property(e => e.State)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("state");
             entity.Property(e => e.StateId).HasColumnName("state_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1011,16 +1015,16 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.PriceWithoutTax).HasColumnName("price_without_tax");
             entity.Property(e => e.ProductName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("product_name");
             entity.Property(e => e.ProductableId).HasColumnName("productable_id");
             entity.Property(e => e.ProductableType)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("productable_type");
             entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.TaxAmount)
@@ -1029,7 +1033,7 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.TotalPrice).HasColumnName("total_price");
             entity.Property(e => e.UnitPrice).HasColumnName("unit_price");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1041,16 +1045,16 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DisplayName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("display_name");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1063,26 +1067,26 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.CompletedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("completed_at");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.OrderId).HasColumnName("order_id");
             entity.Property(e => e.PaymentMerchant)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("payment_merchant");
             entity.Property(e => e.PaymentMethod)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("payment_method");
             entity.Property(e => e.Status)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("status");
             entity.Property(e => e.TransactionId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("transaction_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1094,17 +1098,17 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ApiKey)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("api_key");
             entity.Property(e => e.ApiSecret)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("api_secret");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name).HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1120,31 +1124,31 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasDefaultValueSql("''::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("''::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.EncryptedPassword)
-                .HasDefaultValueSql("''::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("''::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("encrypted_password");
             entity.Property(e => e.RememberCreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("remember_created_at");
             entity.Property(e => e.ResetPasswordSentAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("reset_password_sent_at");
             entity.Property(e => e.ResetPasswordToken)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("reset_password_token");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.Username)
-                .HasDefaultValueSql("''::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("''::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("username");
         });
 
@@ -1159,36 +1163,36 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AverageRating).HasColumnName("average_rating");
             entity.Property(e => e.BarCode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("bar_code");
             entity.Property(e => e.BrandId).HasColumnName("brand_id");
             entity.Property(e => e.ComparePrice).HasColumnName("compare_price");
             entity.Property(e => e.CostPrice).HasColumnName("cost_price");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.Description).HasColumnName("description");
             entity.Property(e => e.HsnCode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("hsn_code");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.PriceWithTax).HasColumnName("price_with_tax");
             entity.Property(e => e.PriceWithoutTax).HasColumnName("price_without_tax");
             entity.Property(e => e.SellPrice).HasColumnName("sell_price");
             entity.Property(e => e.Sku)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("sku");
             entity.Property(e => e.StockQty).HasColumnName("stock_qty");
             entity.Property(e => e.TaxAmount).HasColumnName("tax_amount");
             entity.Property(e => e.TaxId).HasColumnName("tax_id");
             entity.Property(e => e.TaxType).HasColumnName("tax_type");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1202,23 +1206,23 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.ShowProperty)
                 .HasDefaultValueSql("true")
                 .HasColumnName("show_property");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.Value)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("value");
         });
 
@@ -1230,20 +1234,20 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.Message).HasColumnName("message");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.Phone)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("phone");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1258,16 +1262,16 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Comment).HasColumnName("comment");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.OrderItemId).HasColumnName("order_item_id");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.Rating).HasColumnName("rating");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
         });
@@ -1279,7 +1283,7 @@ public partial class DemoStoreContext : DbContext
             entity.ToTable("schema_migrations", "sonusingh2");
 
             entity.Property(e => e.Version)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("version");
         });
 
@@ -1291,13 +1295,13 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Payload)
                 .HasColumnType("json")
                 .HasColumnName("payload");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1310,11 +1314,11 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Charge).HasColumnName("charge");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.LessThan).HasColumnName("less_than");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1326,16 +1330,16 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.Password)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("password");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1347,19 +1351,19 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Code)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("code");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.GstCode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("gst_code");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1373,21 +1377,21 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.Phone).HasColumnName("phone");
             entity.Property(e => e.Subdomain)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("subdomain");
             entity.Property(e => e.SubscriptionPlanId).HasColumnName("subscription_plan_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1400,24 +1404,24 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AdminUserId).HasColumnName("admin_user_id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.OrderBalance).HasColumnName("order_balance");
             entity.Property(e => e.Phone)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("phone");
             entity.Property(e => e.RazorpayCustId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("razorpay_cust_id");
             entity.Property(e => e.StoreName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("store_name");
             entity.Property(e => e.Subdomain)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("subdomain");
             entity.Property(e => e.SubscriptionDate).HasColumnName("subscription_date");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1429,7 +1433,7 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Address)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("address");
             entity.Property(e => e.AllowCashOnDelivery)
                 .HasDefaultValueSql("true")
@@ -1438,76 +1442,76 @@ public partial class DemoStoreContext : DbContext
                 .HasDefaultValueSql("false")
                 .HasColumnName("allow_due_payments");
             entity.Property(e => e.BackgroundColor)
-                .HasDefaultValueSql("'#000000'::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("'#000000'::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("background_color");
             entity.Property(e => e.BorderColor)
-                .HasDefaultValueSql("'#000000'::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("'#000000'::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("border_color");
             entity.Property(e => e.BulkgateAppId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("bulkgate_app_id");
             entity.Property(e => e.BulkgateAppToken)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("bulkgate_app_token");
             entity.Property(e => e.Country)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("country");
             entity.Property(e => e.CountryCode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("country_code");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.CurrencyCode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("currency_code");
             entity.Property(e => e.CustomerCareNumber)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("customer_care_number");
             entity.Property(e => e.CustomerSupportEmail)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("customer_support_email");
             entity.Property(e => e.FacebookUrl)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("facebook_url");
             entity.Property(e => e.FirebaseKey).HasColumnName("firebase_key");
             entity.Property(e => e.GstNumber)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("gst_number");
             entity.Property(e => e.HoverColor)
-                .HasDefaultValueSql("'#CCCCCC'::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("'#CCCCCC'::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("hover_color");
             entity.Property(e => e.InstagramUrl)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("instagram_url");
             entity.Property(e => e.MailFromAddress)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("mail_from_address");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.NewOrderNotificationsEmail)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("new_order_notifications_email");
             entity.Property(e => e.PrintA4Format)
                 .HasDefaultValueSql("false")
                 .HasColumnName("print_a4_format");
             entity.Property(e => e.StateId).HasColumnName("state_id");
             entity.Property(e => e.TextColor)
-                .HasDefaultValueSql("'#FFFFFF'::character varying")
-                .HasColumnType("character varying")
+                .HasDefaultValueSql("'#FFFFFF'::TEXT")
+                .HasColumnType("TEXT")
                 .HasColumnName("text_color");
             entity.Property(e => e.TwitterUrl)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("twitter_url");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.YoutubeUrl)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("youtube_url");
         });
 
@@ -1520,13 +1524,13 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CategoryId).HasColumnName("category_id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1538,13 +1542,13 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1560,23 +1564,23 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.ExpireAt).HasColumnName("expire_at");
             entity.Property(e => e.RazorpayPaymentId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("razorpay_payment_id");
             entity.Property(e => e.RazorpaySubsId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("razorpay_subs_id");
             entity.Property(e => e.StartAt).HasColumnName("start_at");
             entity.Property(e => e.Status)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("status");
             entity.Property(e => e.StoreDetailId).HasColumnName("store_detail_id");
             entity.Property(e => e.SubscriptionPlanId).HasColumnName("subscription_plan_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1591,23 +1595,23 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Amount).HasColumnName("amount");
             entity.Property(e => e.BillingCycle).HasColumnName("billing_cycle");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Description)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("description");
             entity.Property(e => e.OrdersAllowed).HasColumnName("orders_allowed");
             entity.Property(e => e.Period)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("period");
             entity.Property(e => e.PlanName)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("plan_name");
             entity.Property(e => e.RazorpayPlanId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("razorpay_plan_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1619,11 +1623,11 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.TaxPercentage).HasColumnName("tax_percentage");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1638,31 +1642,31 @@ public partial class DemoStoreContext : DbContext
                 .HasDefaultValueSql("true")
                 .HasColumnName("activated");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.Email)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("email");
             entity.Property(e => e.FullPhoneNumber)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("full_phone_number");
             entity.Property(e => e.Name)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("name");
             entity.Property(e => e.PasswordDigest)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("password_digest");
             entity.Property(e => e.PasswordResetSentAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("password_reset_sent_at");
             entity.Property(e => e.Pin)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("pin");
             entity.Property(e => e.StripeId)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("stripe_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1676,30 +1680,30 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BarCode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("bar_code");
             entity.Property(e => e.ComparePrice).HasColumnName("compare_price");
             entity.Property(e => e.CostPrice).HasColumnName("cost_price");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.HsnCode)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("hsn_code");
             entity.Property(e => e.PriceWithTax).HasColumnName("price_with_tax");
             entity.Property(e => e.PriceWithoutTax).HasColumnName("price_without_tax");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.SellPrice).HasColumnName("sell_price");
             entity.Property(e => e.Sku)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("sku");
             entity.Property(e => e.StockQty).HasColumnName("stock_qty");
             entity.Property(e => e.TaxAmount).HasColumnName("tax_amount");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
@@ -1715,11 +1719,11 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.PosUserId).HasColumnName("pos_user_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
@@ -1740,14 +1744,14 @@ public partial class DemoStoreContext : DbContext
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.DeletedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("deleted_at");
             entity.Property(e => e.ProductId).HasColumnName("product_id");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
             entity.Property(e => e.WishlistId).HasColumnName("wishlist_id");
         });
@@ -1761,14 +1765,14 @@ public partial class DemoStoreContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Charge).HasColumnName("charge");
             entity.Property(e => e.Code)
-                .HasColumnType("character varying")
+                .HasColumnType("TEXT")
                 .HasColumnName("code");
             entity.Property(e => e.CreatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("created_at");
             entity.Property(e => e.PriceLessThan).HasColumnName("price_less_than");
             entity.Property(e => e.UpdatedAt)
-                .HasColumnType("timestamp(6) without time zone")
+                .HasColumnType("TEXT")
                 .HasColumnName("updated_at");
         });
 
