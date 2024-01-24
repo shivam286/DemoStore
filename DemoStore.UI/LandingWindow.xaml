@@ -70,18 +70,26 @@
                                 <Grid>
                                     <!--<TreeView Name="menuTreeView">
                                         <TreeViewItem Header="Home">
-                                            --><!-- Home menu items go here --><!--
+                                            -->
+                                    <!-- Home menu items go here -->
+                                    <!--
                                         </TreeViewItem>
 
                                         <TreeViewItem Header="Products">
-                                            --><!-- Products menu items go here --><!--
+                                            -->
+                                    <!-- Products menu items go here -->
+                                    <!--
                                         </TreeViewItem>
 
                                         <TreeViewItem Header="Services">
-                                            --><!-- Services menu items go here --><!--
+                                            -->
+                                    <!-- Services menu items go here -->
+                                    <!--
                                         </TreeViewItem>
 
-                                        --><!-- Add more menu items as needed --><!--
+                                        -->
+                                    <!-- Add more menu items as needed -->
+                                    <!--
                                     </TreeView>-->
 
                                     <Expander  x:Name="myExpander" ExpandDirection="Down" BorderThickness="0" HorizontalAlignment="Left" Foreground="White" Margin="48,0,52,0" FontSize="15" Header="" IsExpanded="True">
@@ -164,6 +172,14 @@
                             <GradientStop Color="White"  Offset="0"/>
                         </LinearGradientBrush>
                     </Border.Background>
+                    <RadioButton x:Name="expandRadioButton_Copy" Background="Transparent" Style="{StaticResource menuButton}"
+                        Cursor="Hand" BorderBrush="Transparent" BorderThickness="0" GroupName="categoryBtn"
+                        Tag="{StaticResource ForegroundColor}" Click="ExpandRadioButton_Click" HorizontalContentAlignment="Left" Checked="RadioButton_Checked" Margin="-251,224,1049,525">
+                        <Grid Height="25" Width="240">
+                            <fa:IconImage Icon="Boxes" Style="{StaticResource menuButtonIcon}" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Height="26" Width="30"/>
+                            <TextBlock Text="Orders" Style="{StaticResource menuButtonText}" Foreground="White" Margin="48,0,52,0" Grid.ColumnSpan="2"/>
+                        </Grid>
+                    </RadioButton>
                 </Border>
             </Grid>
         </Border>
